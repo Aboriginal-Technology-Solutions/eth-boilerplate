@@ -1,0 +1,31 @@
+version: "3.7"
+services:
+  solidity:
+    image: trailofbits/slither
+    env_file:
+      - ./data/environment/solidity.env
+    volumes:
+      - ./hardhat:/home/node/app
+      - ./data/.yarn:/home/node/.yarn
+      - ./data/.config/yarn:/home/node/.config/yarn
+      - ./data/.cache/yarn:/home/node/.cache/yarn
+      - ./data/.bashrc:/home/node/.bashrc
+    working_dir: /home/node/app
+    user: node
+    ports:
+      8545:8545
+      7545:7545
+  frontend:
+    image: node
+    env_file:
+      - ./data/environment/solidity.env
+    volumes:
+      - ./frontend:/home/node/app
+      - ./data/.yarn:/home/node/.yarn
+      - ./data/.config/yarn:/home/node/.config/yarn
+      - ./data/.cache/yarn:/home/node/.cache/yarn
+      - ./data/.bashrc:/home/node/.bashrc
+    working_dir: /home/node/app
+    user: node
+    ports:
+      - 22880:8080
